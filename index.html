@@ -1,28 +1,86 @@
 <!doctype html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="راهنمای حرفه‌ای استراتژی معاملاتی Dual Confirmation برای فیلتر کردن نویز بازار با کندل‌های ۱۰ ثانیه‌ای، Donchian Midline و Parabolic SAR." />
-  <meta name="theme-color" content="#071522" />
-  <title>استراتژی تأیید دوگانه یک‌دقیقه‌ای | Dual Confirmation Trading Strategy</title>
+  <title>Dual Confirmation 1-Minute Trading Strategy | Donchian Midline + Parabolic SAR Guide</title>
+  <meta name="description" content="A professional educational guide to the Dual Confirmation 1-Minute Trading Strategy using 10-second candlesticks, the 15-period Donchian midline, and custom Parabolic SAR confirmation. Download the free strategy book and practice the method in a free demo environment." />
+  <meta name="keywords" content="dual confirmation trading strategy, 1-minute trading strategy, 10-second candles, Donchian midline, Donchian Channels strategy, Parabolic SAR strategy, binary options demo, short-term trading, momentum trading, trading discipline" />
+  <meta name="author" content="Dual Confirmation Trading Strategy" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#07111f" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Dual Confirmation 1-Minute Trading Strategy" />
+  <meta property="og:description" content="Learn how the Donchian midline and custom Parabolic SAR can work together to filter 10-second market noise before a 1-minute trade setup." />
+  <meta property="og:image" content="images/images01.png" />
+  <meta property="og:image:alt" content="Dual confirmation trading strategy visual guide" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dual Confirmation 1-Minute Trading Strategy" />
+  <meta name="twitter:description" content="A practical guide to Donchian midline crossovers, custom Parabolic SAR confirmation, and disciplined 1-minute trade preparation." />
+  <meta name="twitter:image" content="images/images01.png" />
+
+  <link rel="preload" as="image" href="images/images01.png" />
+  <link rel="preload" as="image" href="images/images02.png" />
+  <link rel="preload" as="image" href="images/images03.png" />
+  <link rel="preload" as="image" href="images/images04.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Dual Confirmation 1-Minute Trading Strategy",
+    "description": "Educational guide to a short-duration trading framework using 10-second candlesticks, a 15-period Donchian middle line, and custom Parabolic SAR confirmation.",
+    "image": [
+      "images/images01.png",
+      "images/images02.png",
+      "images/images03.png",
+      "images/images04.png"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Dual Confirmation Strategy Guide"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Dual Confirmation Strategy Guide"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "./"
+    },
+    "about": [
+      "Donchian Channels",
+      "Parabolic SAR",
+      "10-second candles",
+      "1-minute trading strategy",
+      "trading discipline"
+    ],
+    "educationalLevel": "Beginner to Advanced",
+    "isAccessibleForFree": true
+  }
+  </script>
 
   <style>
     :root {
-      --bg: #07111d;
-      --bg-2: #0c1b2b;
-      --card: rgba(255, 255, 255, 0.075);
-      --card-2: rgba(255, 255, 255, 0.11);
-      --text: #eef7ff;
-      --muted: #a9bfd1;
+      --bg: #07111f;
+      --bg-soft: #0d1c2f;
+      --panel: rgba(255, 255, 255, 0.065);
+      --panel-strong: rgba(255, 255, 255, 0.105);
+      --text: #edf7ff;
+      --muted: #b7c7d8;
+      --subtle: #8192a6;
+      --cyan: #35d5e7;
+      --cyan-dark: #16a6bb;
+      --green: #51e6a5;
+      --amber: #ffd166;
+      --red: #ff6b6b;
       --line: rgba(255, 255, 255, 0.14);
-      --cyan: #2ee6e6;
-      --blue: #4da3ff;
-      --green: #49e0a7;
-      --red: #ff6b7a;
-      --gold: #ffd166;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
-      --radius: 26px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+      --radius-lg: 28px;
+      --radius-md: 18px;
       --max: 1160px;
     }
 
@@ -30,722 +88,785 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Tahoma, "Vazirmatn", "Segoe UI", Arial, sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 20% 8%, rgba(46,230,230,0.22), transparent 28rem),
-        radial-gradient(circle at 88% 16%, rgba(77,163,255,0.18), transparent 30rem),
-        linear-gradient(180deg, #06101a 0%, #081827 48%, #050b13 100%);
-      line-height: 1.9;
-      overflow-x: hidden;
+        radial-gradient(circle at 15% 10%, rgba(53, 213, 231, 0.14), transparent 32rem),
+        radial-gradient(circle at 90% 5%, rgba(81, 230, 165, 0.10), transparent 28rem),
+        linear-gradient(180deg, #07111f 0%, #0a1525 42%, #07111f 100%);
+      line-height: 1.65;
     }
 
     a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+    img { display: block; max-width: 100%; }
 
-    .wrap { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
-    .topbar {
+    .container {
+      width: min(100% - 40px, var(--max));
+      margin: 0 auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 1rem;
+      background: var(--cyan);
+      color: #04111c;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      z-index: 99;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    header.nav {
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(16px);
-      background: rgba(5, 12, 20, 0.78);
+      backdrop-filter: blur(18px);
+      background: rgba(7, 17, 31, 0.78);
       border-bottom: 1px solid var(--line);
     }
-    .nav {
-      min-height: 72px;
+
+    .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 1rem;
+      min-height: 74px;
     }
+
     .brand {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
+      gap: 0.75rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
+
     .brand-mark {
       width: 38px;
       height: 38px;
-      border-radius: 13px;
-      background: linear-gradient(135deg, var(--cyan), var(--blue));
-      box-shadow: 0 0 34px rgba(46,230,230,0.35);
-      display: grid;
-      place-items: center;
-      color: #06101a;
-      font-weight: 900;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      box-shadow: 0 0 32px rgba(53, 213, 231, 0.32);
+      position: relative;
     }
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 10px 8px;
+      border-left: 3px solid #06111c;
+      border-bottom: 3px solid #06111c;
+      transform: skew(-20deg) rotate(-18deg);
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 1rem;
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.94rem;
     }
+
     .nav-links a:hover { color: var(--text); }
-    .btn {
+
+    .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
+      gap: 0.5rem;
       min-height: 46px;
-      padding: 0 18px;
+      padding: 0 1.1rem;
       border-radius: 999px;
-      border: 1px solid rgba(46,230,230,0.45);
-      background: rgba(46,230,230,0.08);
-      color: var(--text);
       font-weight: 800;
-      box-shadow: 0 0 0 rgba(46,230,230,0);
-      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-      white-space: nowrap;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+      cursor: pointer;
     }
-    .btn:hover {
+
+    .button:hover {
       transform: translateY(-2px);
-      background: rgba(46,230,230,0.14);
-      box-shadow: 0 14px 34px rgba(46,230,230,0.17);
+      border-color: rgba(53, 213, 231, 0.55);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
     }
-    .btn.primary {
-      background: linear-gradient(135deg, var(--cyan), var(--blue));
-      color: #06101a;
-      border-color: transparent;
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      color: #03111c;
+      border: none;
     }
-    .btn.soft { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
+    }
 
     .hero {
-      padding: 78px 0 42px;
-      position: relative;
+      padding: 86px 0 54px;
+      overflow: hidden;
     }
+
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 36px;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 3rem;
       align-items: center;
     }
+
     .eyebrow {
       display: inline-flex;
-      gap: 8px;
       align-items: center;
-      color: var(--cyan);
-      background: rgba(46,230,230,0.08);
-      border: 1px solid rgba(46,230,230,0.22);
-      padding: 8px 13px;
+      gap: 0.55rem;
+      padding: 0.38rem 0.7rem;
+      border: 1px solid rgba(53, 213, 231, 0.32);
       border-radius: 999px;
-      font-size: .9rem;
-      margin-bottom: 20px;
+      color: var(--cyan);
+      background: rgba(53, 213, 231, 0.08);
+      font-weight: 800;
+      font-size: 0.86rem;
+      letter-spacing: 0.02em;
     }
+
+    h1, h2, h3 {
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+      margin: 0;
+    }
+
     h1 {
-      font-size: clamp(2.05rem, 5vw, 4.8rem);
-      line-height: 1.18;
-      margin: 0 0 20px;
-      letter-spacing: -1.5px;
+      font-size: clamp(3rem, 7vw, 6.35rem);
+      margin-top: 1.2rem;
+      max-width: 980px;
     }
-    .lead {
-      color: #d4e5f2;
-      font-size: clamp(1rem, 1.55vw, 1.22rem);
-      max-width: 760px;
-      margin: 0 0 26px;
+
+    h1 span, .gradient-text {
+      background: linear-gradient(135deg, var(--cyan), #ffffff 48%, var(--green));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-    .hero-actions, .inline-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .note {
+
+    .hero-lead {
+      margin: 1.35rem 0 0;
+      max-width: 680px;
       color: var(--muted);
-      font-size: .93rem;
-      margin-top: 14px;
+      font-size: clamp(1.08rem, 2vw, 1.25rem);
     }
-    .hero-card {
-      background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.045));
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 2rem;
+    }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      margin-top: 2rem;
+      max-width: 680px;
+    }
+
+    .trust-card {
+      padding: 1rem;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.052);
+      border-radius: var(--radius-md);
+    }
+
+    .trust-card strong { display: block; font-size: 1.08rem; color: var(--text); }
+    .trust-card span { display: block; color: var(--subtle); font-size: 0.9rem; margin-top: 0.12rem; }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .image-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
       overflow: hidden;
+      background: var(--panel);
       box-shadow: var(--shadow);
       position: relative;
     }
-    .hero-card::before {
+
+    .image-card::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(46,230,230,.16), transparent 38%);
+      background: linear-gradient(180deg, transparent, rgba(7, 17, 31, 0.18));
       pointer-events: none;
     }
-    .hero-card img {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      border-bottom: 1px solid var(--line);
-    }
-    .hero-card-body { padding: 22px; position: relative; }
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 18px;
-    }
-    .metric {
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.11);
-    }
-    .metric b { display: block; font-size: 1.2rem; color: var(--cyan); }
-    .metric span { color: var(--muted); font-size: .85rem; }
 
-    section { padding: 58px 0; }
+    .ratio-16x9 {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    section { padding: 72px 0; }
+
     .section-head {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 18px;
-      align-items: end;
-      margin-bottom: 26px;
+      max-width: 790px;
+      margin-bottom: 2rem;
     }
-    h2 {
-      font-size: clamp(1.65rem, 3vw, 2.55rem);
-      line-height: 1.35;
-      margin: 0 0 8px;
-      letter-spacing: -.8px;
+
+    .section-kicker {
+      color: var(--cyan);
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.7rem;
     }
-    .section-head p, .muted { color: var(--muted); margin: 0; }
+
+    h2 { font-size: clamp(2rem, 4vw, 3.6rem); }
+    h3 { font-size: clamp(1.35rem, 2vw, 2rem); }
+
+    .section-head p, .wide-text p, .feature p, .step p, .callout p, .faq p {
+      color: var(--muted);
+    }
+
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      align-items: stretch;
     }
+
     .grid-3 {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
     }
-    .card {
-      background: var(--card);
+
+    .feature, .step, .callout, .faq, .warning-box {
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: 0 18px 55px rgba(0,0,0,.18);
+      background: var(--panel);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.17);
     }
-    .card h3 {
-      margin: 0 0 12px;
-      font-size: 1.24rem;
-      color: #fff;
-    }
-    .card p { color: #c8d9e8; margin: 0; }
-    .number {
-      width: 42px;
-      height: 42px;
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
       display: grid;
       place-items: center;
       border-radius: 15px;
-      color: #06101a;
-      background: linear-gradient(135deg, var(--cyan), var(--green));
-      font-weight: 900;
-      margin-bottom: 16px;
+      background: rgba(53, 213, 231, 0.12);
+      color: var(--cyan);
+      font-weight: 950;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(53, 213, 231, 0.2);
     }
-    .image-row {
+
+    .wide-text {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 24px;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 2rem;
       align-items: center;
     }
-    .figure {
+
+    .visual-caption {
+      padding: 1rem 1.1rem;
+      border-top: 1px solid var(--line);
+      color: var(--subtle);
+      font-size: 0.92rem;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .list-clean {
+      list-style: none;
+      padding: 0;
+      margin: 1.2rem 0 0;
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .list-clean li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 0.7rem;
+      color: var(--muted);
+    }
+
+    .check, .cross {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-weight: 950;
+    }
+    .check { background: rgba(81, 230, 165, 0.13); color: var(--green); }
+    .cross { background: rgba(255, 107, 107, 0.13); color: var(--red); }
+
+    .strategy-table {
+      width: 100%;
+      border-collapse: collapse;
       overflow: hidden;
-      border-radius: var(--radius);
+      border-radius: var(--radius-lg);
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .strategy-table th, .strategy-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    .strategy-table th {
+      color: var(--text);
+      background: rgba(53, 213, 231, 0.09);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .strategy-table td { color: var(--muted); }
+    .strategy-table tr:last-child td { border-bottom: none; }
+
+    .cta-band {
+      background:
+        linear-gradient(135deg, rgba(53, 213, 231, 0.15), rgba(81, 230, 165, 0.11)),
+        rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(53, 213, 231, 0.22);
+      border-radius: 34px;
+      padding: clamp(1.6rem, 4vw, 3rem);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.5rem;
+      align-items: center;
       box-shadow: var(--shadow);
     }
-    .figure img {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-    }
-    .caption {
-      padding: 13px 16px;
-      color: var(--muted);
-      font-size: .9rem;
-      border-top: 1px solid var(--line);
-    }
+
+    .cta-band p { color: var(--muted); max-width: 760px; margin: 0.75rem 0 0; }
 
     .steps {
       counter-reset: step;
       display: grid;
-      gap: 14px;
+      gap: 1rem;
     }
+
     .step {
-      counter-increment: step;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 15px;
-      align-items: start;
-      padding: 18px;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.055);
+      position: relative;
+      padding-left: 5.2rem;
     }
+
     .step::before {
+      counter-increment: step;
       content: counter(step);
-      width: 36px;
-      height: 36px;
-      border-radius: 13px;
+      position: absolute;
+      left: 1.35rem;
+      top: 1.35rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
       display: grid;
       place-items: center;
-      font-weight: 900;
-      color: #06101a;
-      background: var(--cyan);
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      color: #03111c;
+      font-weight: 950;
     }
-    .step strong { display: block; margin-bottom: 4px; }
-    .step span { color: var(--muted); }
 
-    .callout {
-      border-radius: var(--radius);
-      padding: 28px;
-      border: 1px solid rgba(46,230,230,.25);
-      background:
-        linear-gradient(135deg, rgba(46,230,230,.13), rgba(77,163,255,.06)),
-        rgba(255,255,255,.055);
-      box-shadow: var(--shadow);
-    }
-    .callout h3 { margin-top: 0; font-size: 1.5rem; }
-    .warning {
-      border-color: rgba(255,209,102,.35);
-      background:
-        linear-gradient(135deg, rgba(255,209,102,.13), rgba(255,107,122,.05)),
-        rgba(255,255,255,.055);
-    }
-    .checklist {
-      display: grid;
-      gap: 11px;
-      margin: 18px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-    .checklist li {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 10px;
-      align-items: start;
-      color: #d2e4f2;
-    }
-    .checklist li::before {
-      content: "✓";
-      color: var(--green);
+    .mini-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      color: var(--cyan);
       font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
     }
-    .compare {
-      width: 100%;
-      border-collapse: collapse;
-      overflow: hidden;
-      border-radius: 20px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.045);
-    }
-    .compare th, .compare td {
-      padding: 15px;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-      text-align: right;
-      vertical-align: top;
-    }
-    .compare th {
-      background: rgba(46,230,230,.1);
-      color: #fff;
-    }
-    .bad { color: #ffb3bb; }
-    .good { color: #b9ffe4; }
 
-    .mini-cta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 22px;
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.075);
-      border: 1px solid var(--line);
+    .warning-box {
+      border-color: rgba(255, 209, 102, 0.32);
+      background: rgba(255, 209, 102, 0.075);
     }
-    .mini-cta p { margin: 0; color: #d1e2ef; }
-    .footer {
-      padding: 42px 0;
+    .warning-box strong { color: var(--amber); }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+    }
+
+    footer {
+      padding: 48px 0 64px;
       border-top: 1px solid var(--line);
-      color: var(--muted);
-      background: rgba(0,0,0,.16);
+      color: var(--subtle);
     }
+
     .footer-grid {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 20px;
-      align-items: center;
+      gap: 1.5rem;
+      align-items: start;
     }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.08);
-      color: var(--muted);
-      font-size: .85rem;
-      margin: 4px;
+
+    .small-print {
+      color: var(--subtle);
+      font-size: 0.9rem;
+      max-width: 860px;
     }
 
     @media (max-width: 900px) {
-      .hero-grid, .grid-2, .grid-3, .image-row, .section-head, .footer-grid {
+      .hero-grid, .wide-text, .grid-2, .grid-3, .faq-grid, .cta-band, .footer-grid {
         grid-template-columns: 1fr;
       }
-      .nav-links { display: none; }
-      .hero { padding-top: 48px; }
-      .mini-cta { align-items: stretch; flex-direction: column; }
-      .btn { width: 100%; }
-      .metrics { grid-template-columns: 1fr; }
-      .compare { display: block; overflow-x: auto; }
+      .nav-links a:not(.button) { display: none; }
+      .trust-row { grid-template-columns: 1fr; }
+      .cta-band { text-align: left; }
+    }
+
+    @media (max-width: 560px) {
+      .container { width: min(100% - 28px, var(--max)); }
+      .hero { padding-top: 56px; }
+      section { padding: 52px 0; }
+      .step { padding-left: 1.4rem; padding-top: 5rem; }
+      .strategy-table { display: block; overflow-x: auto; }
     }
   </style>
 </head>
-
 <body>
-  <header class="topbar">
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="صفحه اصلی">
-        <span class="brand-mark">DC</span>
-        <span>Dual Confirmation Strategy</span>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Dual Confirmation Strategy home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Dual Confirmation</span>
       </a>
-      <nav class="nav-links" aria-label="ناوبری صفحه">
-        <a href="#method">روش</a>
-        <a href="#indicators">اندیکاتورها</a>
-        <a href="#setups">ستاپ‌ها</a>
-        <a href="#checklist">چک‌لیست</a>
-        <a href="#download">دانلود کتاب</a>
+      <nav class="nav-links" aria-label="Page sections">
+        <a href="#method">Method</a>
+        <a href="#rules">Rules</a>
+        <a href="#checklist">Checklist</a>
+        <a class="button secondary" href="https://drive.google.com/uc?export=download&amp;id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">Download Book</a>
       </nav>
-      <a class="btn soft" href="https://drive.google.com/uc?export=download&id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">دانلود کتاب</a>
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="wrap hero-grid">
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="container hero-grid">
         <div>
-          <span class="eyebrow">راهنمای حرفه‌ای استراتژی تأیید دوگانه در تایم‌فریم سریع</span>
-          <h1>استراتژی یک‌دقیقه‌ای با تأیید دوگانه؛ ورود کمتر، تصمیم‌گیری دقیق‌تر</h1>
-          <p class="lead">
-            این صفحه خلاصه‌ای ساختاریافته و قابل‌اجرا از کتاب «Dual Confirmation 1-Minute Trading Strategy» است؛
-            روشی که به‌جای واکنش سریع به هر حرکت بازار، معامله‌گر را به انتظار برای هم‌زمانی
-            <strong>Donchian Midline</strong> و <strong>Parabolic SAR</strong> عادت می‌دهد.
+          <span class="eyebrow">10-second candles - 1-minute execution</span>
+          <h1>Dual Confirmation <span>1-Minute Trading Strategy</span></h1>
+          <p class="hero-lead">
+            A professional learning guide to filtering short-term market noise with a 15-period Donchian middle line and custom Parabolic SAR confirmation before considering a 1-minute trade setup.
           </p>
           <div class="hero-actions">
-            <a class="btn primary" href="https://drive.google.com/uc?export=download&id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">دانلود رایگان کتاب</a>
-            <a class="btn" href="#method">شروع مطالعه استراتژی</a>
+            <a class="button primary" href="https://drive.google.com/uc?export=download&amp;id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">Download the Free Strategy Book</a>
+            <a class="button secondary" href="#method">Explore the Method</a>
           </div>
-          <p class="note">
-            پیشنهاد تمرین: ابتدا همه قوانین را فقط در فضای دمو بررسی کنید. هیچ بخش از این صفحه توصیه مالی یا تضمین نتیجه نیست.
-          </p>
+          <div class="trust-row" aria-label="Core strategy facts">
+            <div class="trust-card"><strong>15-period</strong><span>Donchian middle line focus</span></div>
+            <div class="trust-card"><strong>0.0015 / 0.15</strong><span>Custom Parabolic SAR settings</span></div>
+            <div class="trust-card"><strong>6 candles</strong><span>Six 10-second candles inside one minute</span></div>
+          </div>
         </div>
-
-        <aside class="hero-card" aria-label="خلاصه استراتژی">
-          <img src="images/images01.png" alt="نمای تصویری استراتژی تأیید دوگانه با کانال دانچیان و پارابولیک سار" />
-          <div class="hero-card-body">
-            <strong>هسته‌ی روش:</strong>
-            <p class="muted">
-              ابتدا عبور قیمت از خط میانی Donchian بررسی می‌شود؛ سپس فقط وقتی Parabolic SAR همان جهت را تأیید کرد،
-              ستاپ قابل بررسی است.
-            </p>
-            <div class="metrics">
-              <div class="metric"><b>10s</b><span>کندل کلاسیک</span></div>
-              <div class="metric"><b>15</b><span>Donchian Midline</span></div>
-              <div class="metric"><b>1m</b><span>افق تمرین</span></div>
-            </div>
-          </div>
-        </aside>
+        <figure class="hero-visual image-card">
+          <img class="ratio-16x9" src="images/images01.png" alt="Dual confirmation trading strategy with 10-second candles, Donchian midline, and Parabolic SAR" width="1280" height="720" />
+          <figcaption class="visual-caption">The strategy begins with structure: wait for a midline crossover, then require SAR confirmation before acting.</figcaption>
+        </figure>
       </div>
     </section>
 
     <section id="method">
-      <div class="wrap">
+      <div class="container">
         <div class="section-head">
-          <div>
-            <h2>فلسفه اصلی: صبرِ قانون‌مند، نه کلیک سریع</h2>
-            <p>
-              کتاب تأکید می‌کند که مزیت اصلی این روش در «تأخیر منضبط» است؛ یعنی معامله‌گر منتظر می‌ماند تا حرکت اولیه بازار
-              از فیلتر ساختار و تأیید عبور کند.
-            </p>
-          </div>
-          <a class="btn soft" href="https://drive.google.com/uc?export=download&id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">دریافت نسخه PDF</a>
+          <div class="section-kicker">Core philosophy</div>
+          <h2>Do not trade the first exciting candle. Wait for alignment.</h2>
+          <p>
+            The central idea is disciplined delay. On a fast chart, random candles can look convincing for a few seconds and then disappear. This method turns patience into a rule: first observe the Donchian middle line, then confirm the direction with Parabolic SAR.
+          </p>
         </div>
-
         <div class="grid-3">
-          <article class="card">
-            <div class="number">1</div>
-            <h3>مشاهده به‌جای واکنش</h3>
-            <p>
-              در چارت ۱۰ ثانیه‌ای، حرکت‌های لحظه‌ای زیاد دیده می‌شود. روش به شما یاد می‌دهد ابتدا نویز و جهش‌های کوتاه را
-              از فشار واقعی جدا کنید.
-            </p>
+          <article class="feature">
+            <div class="feature-icon">01</div>
+            <h3>Read the micro-range</h3>
+            <p>The 15-period Donchian middle line acts as the balance point between recent highs and lows. A clean cross can suggest that short-term pressure is shifting.</p>
           </article>
-          <article class="card">
-            <div class="number">2</div>
-            <h3>قانون دو مرحله‌ای</h3>
-            <p>
-              ورود تنها با یک نشانه انجام نمی‌شود. عبور از خط میانی Donchian سرنخ اول است و جابه‌جایی SAR تأیید دوم.
-            </p>
+          <article class="feature">
+            <div class="feature-icon">02</div>
+            <h3>Demand confirmation</h3>
+            <p>Parabolic SAR is not the first reason to trade. It is the second checkpoint that helps separate real momentum from a brief breakout illusion.</p>
           </article>
-          <article class="card">
-            <div class="number">3</div>
-            <h3>کاهش ورودهای احساسی</h3>
-            <p>
-              وقتی چک‌لیست مشخص باشد، ترس از جاماندن و تمایل به جبران سریع کمتر روی تصمیم تأثیر می‌گذارد.
-            </p>
+          <article class="feature">
+            <div class="feature-icon">03</div>
+            <h3>Match the expiration</h3>
+            <p>A 1-minute expiration contains six 10-second candles, giving enough detail to inspect entry quality without relying on a delayed 1-minute chart signal.</p>
           </article>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="wrap image-row">
-        <figure class="figure">
-          <img src="images/images02.png" alt="مقایسه واکنش آماتور با صبر حرفه‌ای در بازار سریع" />
-          <figcaption class="caption">در بازار سریع، مزیت همیشه در سرعت کلیک نیست؛ گاهی در توانایی صبر برای هم‌ترازی نشانه‌هاست.</figcaption>
+      <div class="container wide-text">
+        <figure class="image-card">
+          <img class="ratio-16x9" src="images/images02.png" alt="Professional restraint versus impulsive trading on a fast chart" width="1280" height="720" loading="lazy" />
+          <figcaption class="visual-caption">Professional restraint is the edge: the setup is designed to slow down emotional entries.</figcaption>
         </figure>
-        <div class="card">
-          <h2>چرا تایم‌فریم ۱۰ ثانیه‌ای؟</h2>
+        <div>
+          <div class="section-kicker">Why dual confirmation matters</div>
+          <h2>One signal is information. Two aligned signals create a checklist.</h2>
           <p>
-            برای یک افق یک‌دقیقه‌ای، هر معامله عملاً از شش کندل ۱۰ ثانیه‌ای تشکیل می‌شود. این زاویه دید، جزئیات کافی برای
-            تشخیص شکل‌گیری فشار کوتاه‌مدت را نشان می‌دهد، بدون اینکه کل ستاپ در یک کندل بزرگ و مبهم خلاصه شود.
+            A Donchian midline crossover gives the first clue that price may be leaving one side of the recent range and moving into a new pressure zone. Parabolic SAR then asks whether that movement is stable enough to be treated as momentum.
           </p>
-          <ul class="checklist">
-            <li>کندل کلاسیک اطلاعات باز، بسته، سقف و کف را حفظ می‌کند.</li>
-            <li>خطی یا Heikin Ashi ممکن است ورود را بیش از حد صاف یا دیر نشان دهد.</li>
-            <li>جزئیات بیشتر مفید است، اما فقط وقتی با چک‌لیست کنترل شود.</li>
+          <ul class="list-clean">
+            <li><span class="check">✓</span><span>It helps avoid reacting to isolated spikes around the midline.</span></li>
+            <li><span class="check">✓</span><span>It makes entries more repeatable because the same two conditions must appear together.</span></li>
+            <li><span class="check">✓</span><span>It trains the trader to wait, observe, confirm, and then decide.</span></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="indicators">
-      <div class="wrap">
+    <section id="rules">
+      <div class="container">
         <div class="section-head">
-          <div>
-            <h2>دو جزء اصلی سیستم</h2>
-            <p>این استراتژی با ترکیب یک ابزار ساختاری و یک ابزار تأییدی تلاش می‌کند نویز را از مومنتوم قابل بررسی جدا کند.</p>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <article class="card">
-            <h3>Component A: Donchian Midline</h3>
-            <p>
-              تنظیم پیشنهادی کتاب، تمرکز روی خط میانی Donchian با دوره ۱۵ است؛ باندهای بالا و پایین حذف می‌شوند تا معامله‌گر
-              به‌جای دنبال کردن افراط‌های قیمتی، روی تغییر تعادل کوتاه‌مدت تمرکز کند.
-            </p>
-            <ul class="checklist">
-              <li>دوره: ۱۵</li>
-              <li>تمرکز: فقط خط میانی</li>
-              <li>کارکرد: تشخیص عبور قیمت از مرکز رنج اخیر</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Component B: Parabolic SAR</h3>
-            <p>
-              Parabolic SAR در این روش «سیگنال اصلی» نیست؛ نقش آن تأیید است. تنظیم آهسته‌تر باعث می‌شود اندیکاتور به هر
-              لرزش کوچک در چارت ۱۰ ثانیه‌ای واکنش سریع و کاذب نشان ندهد.
-            </p>
-            <ul class="checklist">
-              <li>Acceleration Step: 0.0015</li>
-              <li>Maximum Acceleration: 0.15</li>
-              <li>کارکرد: تأیید جهت پس از عبور از Donchian Midline</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap image-row">
-        <div class="card">
-          <h2>کالیبراسیون؛ نقطه‌ای که استراتژی زنده می‌شود</h2>
+          <div class="section-kicker">Indicator settings</div>
+          <h2>The calibration is part of the strategy.</h2>
           <p>
-            اگر Donchian خیلی کوتاه باشد، خط میانی بیش از حد عصبی می‌شود و عبورهای متعدد ایجاد می‌کند. اگر خیلی بلند باشد،
-            سیگنال برای معامله یک‌دقیقه‌ای دیر می‌رسد. همچنین SAR با Step استاندارد 0.02 می‌تواند در چارت ۱۰ ثانیه‌ای
-            بیش‌واکنش نشان دهد.
+            The method is built around a fast 10-second environment. Default indicator behavior can be too sensitive, so the book emphasizes slower, more selective SAR settings and a focused Donchian middle line.
           </p>
-          <table class="compare" aria-label="مقایسه تنظیمات">
-            <thead>
-              <tr>
-                <th>تنظیم</th>
-                <th>ریسک تنظیم نامناسب</th>
-                <th>هدف تنظیم پیشنهادی</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Donchian 5</td>
-                <td class="bad">سیگنال‌های زیاد و کم‌کیفیت</td>
-                <td class="good">فیلتر کردن لرزش‌های کوچک با دوره ۱۵</td>
-              </tr>
-              <tr>
-                <td>Donchian 30</td>
-                <td class="bad">تأخیر زیاد برای افق ۱ دقیقه‌ای</td>
-                <td class="good">تعادل بین سرعت و ساختار</td>
-              </tr>
-              <tr>
-                <td>SAR 0.02</td>
-                <td class="bad">فلیپ‌های سریع و تأییدهای کاذب</td>
-                <td class="good">تأیید آرام‌تر با Step 0.0015</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
-        <figure class="figure">
-          <img src="images/images03.png" alt="فیلتر کردن نویز بازار با دانچیان و پارابولیک سار" />
-          <figcaption class="caption">Donchian نقش فیلتر ساختاری و SAR نقش تأیید مومنتوم را بازی می‌کند.</figcaption>
-        </figure>
+        <table class="strategy-table" aria-label="Strategy indicator settings">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Recommended setup</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Chart type</td>
+              <td>Classic candlesticks on a 10-second timeframe</td>
+              <td>Shows raw open, high, low, and close behavior so the trader can judge wick rejection, weak closes, and momentum quality.</td>
+            </tr>
+            <tr>
+              <td>Donchian Channels</td>
+              <td>Period 15, upper and lower bands disabled, middle line visible</td>
+              <td>Reduces chart clutter and focuses attention on the balance point of the recent micro-range.</td>
+            </tr>
+            <tr>
+              <td>Parabolic SAR</td>
+              <td>Acceleration step 0.0015, maximum acceleration 0.15</td>
+              <td>Makes SAR more selective on a 10-second chart, helping it confirm stronger momentum rather than every tiny fluctuation.</td>
+            </tr>
+            <tr>
+              <td>Expiration</td>
+              <td>1 minute</td>
+              <td>Aligns the trade window with six 10-second candles, so entry timing can be evaluated in micro-structure detail.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <section id="setups">
-      <div class="wrap">
-        <div class="section-head">
+    <section>
+      <div class="container">
+        <div class="cta-band">
           <div>
-            <h2>ستاپ Long و Short؛ ورود فقط پس از هم‌زمانی</h2>
+            <div class="section-kicker">Practice before risk</div>
+            <h2>Test the checklist in a free demo environment.</h2>
             <p>
-              واژه «تضمین» در معامله‌گری دقیق نیست. این سیستم قرار نیست آینده را قطعی کند؛ هدف آن ساختن یک چارچوب
-              احتمال‌محور و قابل تمرین است.
+              The safest way to study a short-duration strategy is to practice the sequence without real-money pressure. Use the demo space to observe signals, record examples, and build discipline before making any financial decision.
             </p>
           </div>
-        </div>
-
-        <div class="grid-2">
-          <article class="card">
-            <h3>سناریوی Long</h3>
-            <div class="steps">
-              <div class="step"><div><strong>عبور از پایین به بالا</strong><span>قیمت از زیر خط میانی Donchian به بالای آن حرکت کند.</span></div></div>
-              <div class="step"><div><strong>تأیید SAR</strong><span>نقاط Parabolic SAR زیر کندل‌ها ظاهر شوند.</span></div></div>
-              <div class="step"><div><strong>کیفیت کندل‌ها</strong><span>کندل‌ها بسته‌های قوی‌تر و پولبک‌های کم‌عمق نشان دهند.</span></div></div>
-              <div class="step"><div><strong>تصمیم تمرینی</strong><span>فقط در دمو، نتیجه ستاپ را با قانون ثابت ثبت و بررسی کنید.</span></div></div>
-            </div>
-          </article>
-
-          <article class="card">
-            <h3>سناریوی Short</h3>
-            <div class="steps">
-              <div class="step"><div><strong>ضعف خریداران</strong><span>قیمت در ساخت سقف جدید ناتوان شود یا کندل‌های قرمز کنترل بگیرند.</span></div></div>
-              <div class="step"><div><strong>عبور از بالا به پایین</strong><span>قیمت خط میانی Donchian را به سمت پایین بشکند.</span></div></div>
-              <div class="step"><div><strong>تأیید SAR</strong><span>نقاط SAR بالای کندل‌ها قرار بگیرند.</span></div></div>
-              <div class="step"><div><strong>اجتناب از ورود زودهنگام</strong><span>قبل از تأیید دوم، پولبک را با برگشت واقعی اشتباه نگیرید.</span></div></div>
-            </div>
-          </article>
+          <div>
+            <a class="button primary" href="https://u3.shortink.io/register?utm_campaign=5940&amp;utm_source=affiliate&amp;utm_medium=sr&amp;a=acRvUGUgdpQoMh&amp;al=1760840&amp;ac=gettingricheasy&amp;cid=954997&amp;code=WELCOME50" target="_blank" rel="sponsored nofollow noopener">Open a Free Demo Account</a>
+          </div>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="wrap mini-cta">
+      <div class="container wide-text">
         <div>
-          <strong>تمرین بدون فشار روانی</strong>
+          <div class="section-kicker">Long setup</div>
+          <h2>The ideal long trade is a synchronized upward shift.</h2>
           <p>
-            برای اینکه این روش حالت تبلیغاتی پیدا نکند، پیشنهاد اصلی این صفحه فقط تمرین است: قوانین را در محیط دمو تست کنید،
-            ژورنال بگیرید، و تا قبل از مشاهده ثبات، سراغ ریسک واقعی نروید.
+            A long setup begins when price moves from below the 15-period Donchian middle line to above it with a clean bullish candle. The setup becomes stronger when Parabolic SAR dots appear below the candles at nearly the same time.
           </p>
+          <div class="steps" aria-label="Long trade sequence">
+            <article class="step"><span class="mini-label">Step</span><h3>The breach</h3><p>Wait for a decisive bottom-to-top cross of the Donchian middle line.</p></article>
+            <article class="step"><span class="mini-label">Step</span><h3>The confirmation</h3><p>Confirm that SAR dots are below the candles, suggesting upward pressure is becoming organized.</p></article>
+            <article class="step"><span class="mini-label">Step</span><h3>The decision</h3><p>Only consider execution when both signals appear close together and the candle behavior is smooth.</p></article>
+          </div>
         </div>
-        <a class="btn primary" href="https://u3.shortink.io/register?utm_campaign=5940&utm_source=affiliate&utm_medium=sr&a=acRvUGUgdpQoMh&al=1760840&ac=gettingricheasy&cid=954997&code=WELCOME50" target="_blank" rel="sponsored noopener">عضویت رایگان و تست در دمو</a>
+        <figure class="image-card">
+          <img class="ratio-16x9" src="images/images03.png" alt="Perfect long trade blueprint using Donchian midline and Parabolic SAR confirmation" width="1280" height="720" loading="lazy" />
+          <figcaption class="visual-caption">A long setup is not just a cross; it is a cross plus confirmation plus clean candle behavior.</figcaption>
+        </figure>
       </div>
     </section>
 
     <section>
-      <div class="wrap image-row">
-        <figure class="figure">
-          <img src="images/images04.png" alt="محیط تمرین میکروپالس و ارتباط کندل‌های ۱۰ ثانیه‌ای با معامله یک دقیقه‌ای" />
-          <figcaption class="caption">تمرین روی کندل‌های ۱۰ ثانیه‌ای کمک می‌کند ریتم شش کندل داخل یک افق یک‌دقیقه‌ای بهتر دیده شود.</figcaption>
+      <div class="container wide-text">
+        <figure class="image-card">
+          <img class="ratio-16x9" src="images/images04.png" alt="Perfect short trade blueprint using Donchian midline and Parabolic SAR confirmation" width="1280" height="720" loading="lazy" />
+          <figcaption class="visual-caption">A short setup waits for buyer momentum to fail before following a downward push.</figcaption>
         </figure>
-        <div class="card">
-          <h2>بینش پیشرفته: فقط اندیکاتور نبینید</h2>
+        <div>
+          <div class="section-kicker">Short setup</div>
+          <h2>The ideal short trade begins when buyer momentum dries up.</h2>
           <p>
-            کتاب روی کیفیت حرکت نیز تأکید می‌کند. اگر عبور از خط میانی با سایه‌های بلند، کندل‌های نامنظم و برگشت‌های تند همراه باشد،
-            بازار هنوز درگیر است. ستاپ‌های تمیز معمولاً حرکت روان‌تر، پولبک کم‌عمق‌تر و ادامه‌داری واضح‌تری دارند.
+            A short setup forms when price fails to make new highs, then moves from above the Donchian middle line to below it. SAR confirmation appears when dots print above the candles, showing that downward pressure is becoming more organized.
           </p>
-          <ul class="checklist">
-            <li>از بازارهای بسیار آشفته و پر از اسپایک دوری کنید.</li>
-            <li>حرکت روان و کندل‌های هم‌جهت را به جهش‌های هیجانی ترجیح دهید.</li>
-            <li>در شکست پس از رنج، ابتدا واکنش بعد از ایمپالس را ببینید.</li>
+          <ul class="list-clean">
+            <li><span class="check">✓</span><span>Look for a clean top-to-bottom midline cross.</span></li>
+            <li><span class="check">✓</span><span>Require SAR dots above price before treating the move as confirmed.</span></li>
+            <li><span class="cross">×</span><span>Avoid shorting too early during a temporary pullback without confirmation.</span></li>
           </ul>
         </div>
       </div>
     </section>
 
     <section id="checklist">
-      <div class="wrap">
-        <div class="callout">
-          <h2>چک‌لیست قبل از هر تمرین</h2>
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">Execution checklist</div>
+          <h2>Do not execute until every condition is aligned.</h2>
           <p>
-            قبل از ثبت هر ستاپ در ژورنال تمرینی، این موارد باید هم‌زمان برقرار باشند. نبودن یکی از آن‌ها یعنی «عدم معامله».
+            The checklist below converts the strategy into a practical pre-flight routine. It is intentionally strict because short-duration trading punishes impulsive decisions.
           </p>
-          <ul class="checklist">
-            <li>چارت روی کندل کلاسیک ۱۰ ثانیه‌ای تنظیم شده باشد.</li>
-            <li>افق بررسی/تمرین با منطق یک‌دقیقه‌ای هماهنگ باشد.</li>
-            <li>Donchian با دوره ۱۵ و تمرکز روی خط میانی استفاده شود.</li>
-            <li>Parabolic SAR با Step برابر 0.0015 و Max برابر 0.15 تنظیم شود.</li>
-            <li>قیمت خط میانی را در جهت ستاپ به‌صورت واضح قطع کرده باشد.</li>
-            <li>SAR در سمت درست کندل‌ها ظاهر شده باشد: زیر کندل برای Long و بالای کندل برای Short.</li>
-            <li>کندل‌ها آشفته، پر اسپایک و متناقض نباشند.</li>
-            <li>نتیجه هر تمرین در ژورنال با اسکرین‌شات و توضیح کوتاه ثبت شود.</li>
-          </ul>
+        </div>
+        <div class="grid-2">
+          <article class="callout">
+            <h3>Setup checklist</h3>
+            <ul class="list-clean">
+              <li><span class="check">✓</span><span>Platform chart is set to classic candlesticks.</span></li>
+              <li><span class="check">✓</span><span>Timeframe is set to 10 seconds.</span></li>
+              <li><span class="check">✓</span><span>Expiration is locked to 1 minute.</span></li>
+              <li><span class="check">✓</span><span>Donchian period is 15 with only the middle line visible.</span></li>
+              <li><span class="check">✓</span><span>Parabolic SAR is set to 0.0015 step and 0.15 maximum.</span></li>
+            </ul>
+          </article>
+          <article class="callout">
+            <h3>Quality checklist</h3>
+            <ul class="list-clean">
+              <li><span class="check">✓</span><span>Price crosses the middle line decisively, not randomly.</span></li>
+              <li><span class="check">✓</span><span>SAR confirms on the correct side of the candles.</span></li>
+              <li><span class="check">✓</span><span>Candle movement is smooth, not chaotic or wick-heavy.</span></li>
+              <li><span class="check">✓</span><span>Pullbacks are shallow and do not instantly erase the signal.</span></li>
+              <li><span class="cross">×</span><span>No trade is taken when either indicator is missing.</span></li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="download">
-      <div class="wrap grid-2">
-        <div class="callout warning">
-          <h2>دانلود کتاب کامل</h2>
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">Common calibration mistakes</div>
+          <h2>Faster is not always better.</h2>
           <p>
-            این صفحه فقط یک نسخه خلاصه‌شده و کاربردی از مفاهیم کتاب است. برای دیدن توضیحات تصویری کامل، مثال‌ها و
-            دیاگرام‌های دقیق، فایل اصلی را دانلود کنید.
+            The book explains that increasing the SAR step to a common 0.02 can make the indicator flip too frequently on 10-second candles. A very short Donchian period can also create repeated low-quality crossovers. The goal is not to generate more signals; the goal is to filter for cleaner ones.
           </p>
-          <div class="inline-actions" style="margin-top:18px">
-            <a class="btn primary" href="https://drive.google.com/uc?export=download&id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">دانلود مستقیم کتاب</a>
-            <a class="btn soft" href="#top">بازگشت به ابتدای صفحه</a>
-          </div>
         </div>
+        <div class="grid-3">
+          <article class="feature">
+            <div class="feature-icon">SAR</div>
+            <h3>Too sensitive</h3>
+            <p>A faster SAR may validate weak moves before the Donchian crossover has meaningful follow-through.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon">DCH</div>
+            <h3>Too short</h3>
+            <p>A 5-period Donchian middle line can become nervous, turning normal candle vibration into frequent signals.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-icon">TF</div>
+            <h3>Too slow</h3>
+            <p>Using the exact rules on longer charts can delay confirmation until the 1-minute opportunity has already passed.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        <div class="callout">
-          <h2>تمرین در محیط دمو</h2>
-          <p>
-            بعد از مطالعه کتاب، می‌توانید قوانین را در یک فضای دمو و بدون درگیر کردن سرمایه واقعی بررسی کنید. معیار شما
-            باید کیفیت اجرای چک‌لیست، تعداد خطاهای احساسی و ثبات نتایج در نمونه‌های متعدد باشد؛ نه چند نتیجه تصادفی.
-          </p>
-          <div class="inline-actions" style="margin-top:18px">
-            <a class="btn" href="https://u3.shortink.io/register?utm_campaign=5940&utm_source=affiliate&utm_medium=sr&a=acRvUGUgdpQoMh&al=1760840&ac=gettingricheasy&cid=954997&code=WELCOME50" target="_blank" rel="sponsored noopener">باز کردن حساب رایگان دمو</a>
+    <section>
+      <div class="container">
+        <div class="cta-band">
+          <div>
+            <div class="section-kicker">Get the full guide</div>
+            <h2>Download the complete strategy book.</h2>
+            <p>
+              The full book expands the method across general philosophy, indicator calibration, long and short blueprints, consolidation breakouts, and the psychological value of waiting for strict dual confirmation.
+            </p>
+          </div>
+          <div>
+            <a class="button primary" href="https://drive.google.com/uc?export=download&amp;id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">Download Book</a>
           </div>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="wrap card">
-        <h2>یادآوری مهم ریسک</h2>
-        <p>
-          معاملات کوتاه‌مدت و باینری آپشن ریسک بالایی دارند و ممکن است باعث زیان شوند. محتوای این صفحه صرفاً آموزشی است،
-          هیچ سود، نرخ برد یا نتیجه‌ای را تضمین نمی‌کند و جایگزین مشاوره مالی حرفه‌ای نیست. بهترین کاربرد این صفحه،
-          تمرین منظم، ژورنال‌نویسی و ساختن انضباط قبل از هر تصمیم مالی واقعی است.
-        </p>
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">Frequently asked questions</div>
+          <h2>Key questions before practicing the strategy.</h2>
+        </div>
+        <div class="faq-grid">
+          <article class="faq">
+            <h3>Does dual confirmation guarantee profit?</h3>
+            <p>No. No indicator combination can guarantee a profitable result. Dual confirmation is a decision framework designed to reduce impulsive entries and improve consistency.</p>
+          </article>
+          <article class="faq">
+            <h3>Why use classic candlesticks?</h3>
+            <p>Classic candlesticks show raw price behavior, including wicks and weak closes. This matters when timing a 1-minute setup from 10-second chart data.</p>
+          </article>
+          <article class="faq">
+            <h3>Why not use a 1-minute or 5-minute chart?</h3>
+            <p>The rules are designed for micro-momentum. Longer charts can make confirmation appear too late for a 1-minute expiration.</p>
+          </article>
+          <article class="faq">
+            <h3>Where should I test the method first?</h3>
+            <p>Practice in a demo environment before making any real-money decision. A demo account lets you record examples, measure behavior, and build discipline without immediate financial pressure.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="warning-box">
+          <strong>Educational risk notice:</strong>
+          <p>
+            This page is educational material only and is not financial advice. Binary options and short-duration trading involve substantial risk. Practice in a demo environment, keep records, and never risk money you cannot afford to lose.
+          </p>
+          <div class="hero-actions" style="margin-top: 1rem;">
+            <a class="button secondary" href="https://drive.google.com/uc?export=download&amp;id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">Download the Strategy Book</a>
+            <a class="button secondary" href="https://u3.shortink.io/register?utm_campaign=5940&amp;utm_source=affiliate&amp;utm_medium=sr&amp;a=acRvUGUgdpQoMh&amp;al=1760840&amp;ac=gettingricheasy&amp;cid=954997&amp;code=WELCOME50" target="_blank" rel="sponsored nofollow noopener">Practice in Free Demo</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-grid">
+  <footer>
+    <div class="container footer-grid">
       <div>
-        <strong>Dual Confirmation 1-Minute Trading Strategy</strong>
-        <p>
-          ساخته‌شده برای GitHub Pages — فایل تصاویر را در مسیر <code>images/</code> قرار دهید و همین <code>index.html</code> را در ریشه ریپازیتوری بگذارید.
+        <div class="brand" aria-label="Dual Confirmation Strategy">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Dual Confirmation Strategy</span>
+        </div>
+        <p class="small-print">
+          Built as an educational GitHub Pages landing page for the Dual Confirmation 1-Minute Trading Strategy. The content summarizes a rule-based approach using 10-second candlesticks, a 15-period Donchian middle line, and custom Parabolic SAR confirmation.
         </p>
-        <span class="pill">Educational Only</span>
-        <span class="pill">Demo First</span>
-        <span class="pill">No Profit Guarantee</span>
+        <p class="small-print">
+          Affiliate disclosure: the demo account button may contain an affiliate tracking link. The strategy should be tested carefully in a demo environment before any real-money decision.
+        </p>
       </div>
-      <div class="inline-actions">
-        <a class="btn soft" href="https://drive.google.com/uc?export=download&id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">دانلود کتاب</a>
-        <a class="btn" href="https://u3.shortink.io/register?utm_campaign=5940&utm_source=affiliate&utm_medium=sr&a=acRvUGUgdpQoMh&al=1760840&ac=gettingricheasy&cid=954997&code=WELCOME50" target="_blank" rel="sponsored noopener">تست در دمو</a>
+      <div class="hero-actions" style="margin-top: 0;">
+        <a class="button secondary" href="#top">Back to Top</a>
+        <a class="button primary" href="https://drive.google.com/uc?export=download&amp;id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">Download Book</a>
       </div>
     </div>
   </footer>
