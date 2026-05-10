@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="راهنمای حرفه‌ای استراتژی معاملاتی Dual Confirmation برای فیلتر کردن نویز بازار با کندل‌های ۱۰ ثانیه‌ای، Donchian Midline و Parabolic SAR." />
+  <meta name="theme-color" content="#071522" />
+  <title>استراتژی تأیید دوگانه یک‌دقیقه‌ای | Dual Confirmation Trading Strategy</title>
+
+  <style>
+    :root {
+      --bg: #07111d;
+      --bg-2: #0c1b2b;
+      --card: rgba(255, 255, 255, 0.075);
+      --card-2: rgba(255, 255, 255, 0.11);
+      --text: #eef7ff;
+      --muted: #a9bfd1;
+      --line: rgba(255, 255, 255, 0.14);
+      --cyan: #2ee6e6;
+      --blue: #4da3ff;
+      --green: #49e0a7;
+      --red: #ff6b7a;
+      --gold: #ffd166;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --radius: 26px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Tahoma, "Vazirmatn", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 8%, rgba(46,230,230,0.22), transparent 28rem),
+        radial-gradient(circle at 88% 16%, rgba(77,163,255,0.18), transparent 30rem),
+        linear-gradient(180deg, #06101a 0%, #081827 48%, #050b13 100%);
+      line-height: 1.9;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .wrap { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 12, 20, 0.78);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      box-shadow: 0 0 34px rgba(46,230,230,0.35);
+      display: grid;
+      place-items: center;
+      color: #06101a;
+      font-weight: 900;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(46,230,230,0.45);
+      background: rgba(46,230,230,0.08);
+      color: var(--text);
+      font-weight: 800;
+      box-shadow: 0 0 0 rgba(46,230,230,0);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      white-space: nowrap;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      background: rgba(46,230,230,0.14);
+      box-shadow: 0 14px 34px rgba(46,230,230,0.17);
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      color: #06101a;
+      border-color: transparent;
+    }
+    .btn.soft { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+
+    .hero {
+      padding: 78px 0 42px;
+      position: relative;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 36px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--cyan);
+      background: rgba(46,230,230,0.08);
+      border: 1px solid rgba(46,230,230,0.22);
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-size: .9rem;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: clamp(2.05rem, 5vw, 4.8rem);
+      line-height: 1.18;
+      margin: 0 0 20px;
+      letter-spacing: -1.5px;
+    }
+    .lead {
+      color: #d4e5f2;
+      font-size: clamp(1rem, 1.55vw, 1.22rem);
+      max-width: 760px;
+      margin: 0 0 26px;
+    }
+    .hero-actions, .inline-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .note {
+      color: var(--muted);
+      font-size: .93rem;
+      margin-top: 14px;
+    }
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.045));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(46,230,230,.16), transparent 38%);
+      pointer-events: none;
+    }
+    .hero-card img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-card-body { padding: 22px; position: relative; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .metric {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.11);
+    }
+    .metric b { display: block; font-size: 1.2rem; color: var(--cyan); }
+    .metric span { color: var(--muted); font-size: .85rem; }
+
+    section { padding: 58px 0; }
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 26px;
+    }
+    h2 {
+      font-size: clamp(1.65rem, 3vw, 2.55rem);
+      line-height: 1.35;
+      margin: 0 0 8px;
+      letter-spacing: -.8px;
+    }
+    .section-head p, .muted { color: var(--muted); margin: 0; }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 18px 55px rgba(0,0,0,.18);
+    }
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 1.24rem;
+      color: #fff;
+    }
+    .card p { color: #c8d9e8; margin: 0; }
+    .number {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: #06101a;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .image-row {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .figure {
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      box-shadow: var(--shadow);
+    }
+    .figure img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    .caption {
+      padding: 13px 16px;
+      color: var(--muted);
+      font-size: .9rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 14px;
+    }
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 15px;
+      align-items: start;
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.055);
+    }
+    .step::before {
+      content: counter(step);
+      width: 36px;
+      height: 36px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #06101a;
+      background: var(--cyan);
+    }
+    .step strong { display: block; margin-bottom: 4px; }
+    .step span { color: var(--muted); }
+
+    .callout {
+      border-radius: var(--radius);
+      padding: 28px;
+      border: 1px solid rgba(46,230,230,.25);
+      background:
+        linear-gradient(135deg, rgba(46,230,230,.13), rgba(77,163,255,.06)),
+        rgba(255,255,255,.055);
+      box-shadow: var(--shadow);
+    }
+    .callout h3 { margin-top: 0; font-size: 1.5rem; }
+    .warning {
+      border-color: rgba(255,209,102,.35);
+      background:
+        linear-gradient(135deg, rgba(255,209,102,.13), rgba(255,107,122,.05)),
+        rgba(255,255,255,.055);
+    }
+    .checklist {
+      display: grid;
+      gap: 11px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .checklist li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: start;
+      color: #d2e4f2;
+    }
+    .checklist li::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 900;
+    }
+    .compare {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+    }
+    .compare th, .compare td {
+      padding: 15px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      text-align: right;
+      vertical-align: top;
+    }
+    .compare th {
+      background: rgba(46,230,230,.1);
+      color: #fff;
+    }
+    .bad { color: #ffb3bb; }
+    .good { color: #b9ffe4; }
+
+    .mini-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 22px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.075);
+      border: 1px solid var(--line);
+    }
+    .mini-cta p { margin: 0; color: #d1e2ef; }
+    .footer {
+      padding: 42px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(0,0,0,.16);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      color: var(--muted);
+      font-size: .85rem;
+      margin: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid, .grid-2, .grid-3, .image-row, .section-head, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links { display: none; }
+      .hero { padding-top: 48px; }
+      .mini-cta { align-items: stretch; flex-direction: column; }
+      .btn { width: 100%; }
+      .metrics { grid-template-columns: 1fr; }
+      .compare { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="صفحه اصلی">
+        <span class="brand-mark">DC</span>
+        <span>Dual Confirmation Strategy</span>
+      </a>
+      <nav class="nav-links" aria-label="ناوبری صفحه">
+        <a href="#method">روش</a>
+        <a href="#indicators">اندیکاتورها</a>
+        <a href="#setups">ستاپ‌ها</a>
+        <a href="#checklist">چک‌لیست</a>
+        <a href="#download">دانلود کتاب</a>
+      </nav>
+      <a class="btn soft" href="https://drive.google.com/uc?export=download&id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">دانلود کتاب</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">راهنمای حرفه‌ای استراتژی تأیید دوگانه در تایم‌فریم سریع</span>
+          <h1>استراتژی یک‌دقیقه‌ای با تأیید دوگانه؛ ورود کمتر، تصمیم‌گیری دقیق‌تر</h1>
+          <p class="lead">
+            این صفحه خلاصه‌ای ساختاریافته و قابل‌اجرا از کتاب «Dual Confirmation 1-Minute Trading Strategy» است؛
+            روشی که به‌جای واکنش سریع به هر حرکت بازار، معامله‌گر را به انتظار برای هم‌زمانی
+            <strong>Donchian Midline</strong> و <strong>Parabolic SAR</strong> عادت می‌دهد.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="https://drive.google.com/uc?export=download&id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">دانلود رایگان کتاب</a>
+            <a class="btn" href="#method">شروع مطالعه استراتژی</a>
+          </div>
+          <p class="note">
+            پیشنهاد تمرین: ابتدا همه قوانین را فقط در فضای دمو بررسی کنید. هیچ بخش از این صفحه توصیه مالی یا تضمین نتیجه نیست.
+          </p>
+        </div>
+
+        <aside class="hero-card" aria-label="خلاصه استراتژی">
+          <img src="images/images01.png" alt="نمای تصویری استراتژی تأیید دوگانه با کانال دانچیان و پارابولیک سار" />
+          <div class="hero-card-body">
+            <strong>هسته‌ی روش:</strong>
+            <p class="muted">
+              ابتدا عبور قیمت از خط میانی Donchian بررسی می‌شود؛ سپس فقط وقتی Parabolic SAR همان جهت را تأیید کرد،
+              ستاپ قابل بررسی است.
+            </p>
+            <div class="metrics">
+              <div class="metric"><b>10s</b><span>کندل کلاسیک</span></div>
+              <div class="metric"><b>15</b><span>Donchian Midline</span></div>
+              <div class="metric"><b>1m</b><span>افق تمرین</span></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="method">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>فلسفه اصلی: صبرِ قانون‌مند، نه کلیک سریع</h2>
+            <p>
+              کتاب تأکید می‌کند که مزیت اصلی این روش در «تأخیر منضبط» است؛ یعنی معامله‌گر منتظر می‌ماند تا حرکت اولیه بازار
+              از فیلتر ساختار و تأیید عبور کند.
+            </p>
+          </div>
+          <a class="btn soft" href="https://drive.google.com/uc?export=download&id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">دریافت نسخه PDF</a>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="number">1</div>
+            <h3>مشاهده به‌جای واکنش</h3>
+            <p>
+              در چارت ۱۰ ثانیه‌ای، حرکت‌های لحظه‌ای زیاد دیده می‌شود. روش به شما یاد می‌دهد ابتدا نویز و جهش‌های کوتاه را
+              از فشار واقعی جدا کنید.
+            </p>
+          </article>
+          <article class="card">
+            <div class="number">2</div>
+            <h3>قانون دو مرحله‌ای</h3>
+            <p>
+              ورود تنها با یک نشانه انجام نمی‌شود. عبور از خط میانی Donchian سرنخ اول است و جابه‌جایی SAR تأیید دوم.
+            </p>
+          </article>
+          <article class="card">
+            <div class="number">3</div>
+            <h3>کاهش ورودهای احساسی</h3>
+            <p>
+              وقتی چک‌لیست مشخص باشد، ترس از جاماندن و تمایل به جبران سریع کمتر روی تصمیم تأثیر می‌گذارد.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap image-row">
+        <figure class="figure">
+          <img src="images/images02.png" alt="مقایسه واکنش آماتور با صبر حرفه‌ای در بازار سریع" />
+          <figcaption class="caption">در بازار سریع، مزیت همیشه در سرعت کلیک نیست؛ گاهی در توانایی صبر برای هم‌ترازی نشانه‌هاست.</figcaption>
+        </figure>
+        <div class="card">
+          <h2>چرا تایم‌فریم ۱۰ ثانیه‌ای؟</h2>
+          <p>
+            برای یک افق یک‌دقیقه‌ای، هر معامله عملاً از شش کندل ۱۰ ثانیه‌ای تشکیل می‌شود. این زاویه دید، جزئیات کافی برای
+            تشخیص شکل‌گیری فشار کوتاه‌مدت را نشان می‌دهد، بدون اینکه کل ستاپ در یک کندل بزرگ و مبهم خلاصه شود.
+          </p>
+          <ul class="checklist">
+            <li>کندل کلاسیک اطلاعات باز، بسته، سقف و کف را حفظ می‌کند.</li>
+            <li>خطی یا Heikin Ashi ممکن است ورود را بیش از حد صاف یا دیر نشان دهد.</li>
+            <li>جزئیات بیشتر مفید است، اما فقط وقتی با چک‌لیست کنترل شود.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="indicators">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>دو جزء اصلی سیستم</h2>
+            <p>این استراتژی با ترکیب یک ابزار ساختاری و یک ابزار تأییدی تلاش می‌کند نویز را از مومنتوم قابل بررسی جدا کند.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Component A: Donchian Midline</h3>
+            <p>
+              تنظیم پیشنهادی کتاب، تمرکز روی خط میانی Donchian با دوره ۱۵ است؛ باندهای بالا و پایین حذف می‌شوند تا معامله‌گر
+              به‌جای دنبال کردن افراط‌های قیمتی، روی تغییر تعادل کوتاه‌مدت تمرکز کند.
+            </p>
+            <ul class="checklist">
+              <li>دوره: ۱۵</li>
+              <li>تمرکز: فقط خط میانی</li>
+              <li>کارکرد: تشخیص عبور قیمت از مرکز رنج اخیر</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Component B: Parabolic SAR</h3>
+            <p>
+              Parabolic SAR در این روش «سیگنال اصلی» نیست؛ نقش آن تأیید است. تنظیم آهسته‌تر باعث می‌شود اندیکاتور به هر
+              لرزش کوچک در چارت ۱۰ ثانیه‌ای واکنش سریع و کاذب نشان ندهد.
+            </p>
+            <ul class="checklist">
+              <li>Acceleration Step: 0.0015</li>
+              <li>Maximum Acceleration: 0.15</li>
+              <li>کارکرد: تأیید جهت پس از عبور از Donchian Midline</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap image-row">
+        <div class="card">
+          <h2>کالیبراسیون؛ نقطه‌ای که استراتژی زنده می‌شود</h2>
+          <p>
+            اگر Donchian خیلی کوتاه باشد، خط میانی بیش از حد عصبی می‌شود و عبورهای متعدد ایجاد می‌کند. اگر خیلی بلند باشد،
+            سیگنال برای معامله یک‌دقیقه‌ای دیر می‌رسد. همچنین SAR با Step استاندارد 0.02 می‌تواند در چارت ۱۰ ثانیه‌ای
+            بیش‌واکنش نشان دهد.
+          </p>
+          <table class="compare" aria-label="مقایسه تنظیمات">
+            <thead>
+              <tr>
+                <th>تنظیم</th>
+                <th>ریسک تنظیم نامناسب</th>
+                <th>هدف تنظیم پیشنهادی</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Donchian 5</td>
+                <td class="bad">سیگنال‌های زیاد و کم‌کیفیت</td>
+                <td class="good">فیلتر کردن لرزش‌های کوچک با دوره ۱۵</td>
+              </tr>
+              <tr>
+                <td>Donchian 30</td>
+                <td class="bad">تأخیر زیاد برای افق ۱ دقیقه‌ای</td>
+                <td class="good">تعادل بین سرعت و ساختار</td>
+              </tr>
+              <tr>
+                <td>SAR 0.02</td>
+                <td class="bad">فلیپ‌های سریع و تأییدهای کاذب</td>
+                <td class="good">تأیید آرام‌تر با Step 0.0015</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="figure">
+          <img src="images/images03.png" alt="فیلتر کردن نویز بازار با دانچیان و پارابولیک سار" />
+          <figcaption class="caption">Donchian نقش فیلتر ساختاری و SAR نقش تأیید مومنتوم را بازی می‌کند.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="setups">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>ستاپ Long و Short؛ ورود فقط پس از هم‌زمانی</h2>
+            <p>
+              واژه «تضمین» در معامله‌گری دقیق نیست. این سیستم قرار نیست آینده را قطعی کند؛ هدف آن ساختن یک چارچوب
+              احتمال‌محور و قابل تمرین است.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>سناریوی Long</h3>
+            <div class="steps">
+              <div class="step"><div><strong>عبور از پایین به بالا</strong><span>قیمت از زیر خط میانی Donchian به بالای آن حرکت کند.</span></div></div>
+              <div class="step"><div><strong>تأیید SAR</strong><span>نقاط Parabolic SAR زیر کندل‌ها ظاهر شوند.</span></div></div>
+              <div class="step"><div><strong>کیفیت کندل‌ها</strong><span>کندل‌ها بسته‌های قوی‌تر و پولبک‌های کم‌عمق نشان دهند.</span></div></div>
+              <div class="step"><div><strong>تصمیم تمرینی</strong><span>فقط در دمو، نتیجه ستاپ را با قانون ثابت ثبت و بررسی کنید.</span></div></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>سناریوی Short</h3>
+            <div class="steps">
+              <div class="step"><div><strong>ضعف خریداران</strong><span>قیمت در ساخت سقف جدید ناتوان شود یا کندل‌های قرمز کنترل بگیرند.</span></div></div>
+              <div class="step"><div><strong>عبور از بالا به پایین</strong><span>قیمت خط میانی Donchian را به سمت پایین بشکند.</span></div></div>
+              <div class="step"><div><strong>تأیید SAR</strong><span>نقاط SAR بالای کندل‌ها قرار بگیرند.</span></div></div>
+              <div class="step"><div><strong>اجتناب از ورود زودهنگام</strong><span>قبل از تأیید دوم، پولبک را با برگشت واقعی اشتباه نگیرید.</span></div></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap mini-cta">
+        <div>
+          <strong>تمرین بدون فشار روانی</strong>
+          <p>
+            برای اینکه این روش حالت تبلیغاتی پیدا نکند، پیشنهاد اصلی این صفحه فقط تمرین است: قوانین را در محیط دمو تست کنید،
+            ژورنال بگیرید، و تا قبل از مشاهده ثبات، سراغ ریسک واقعی نروید.
+          </p>
+        </div>
+        <a class="btn primary" href="https://u3.shortink.io/register?utm_campaign=5940&utm_source=affiliate&utm_medium=sr&a=acRvUGUgdpQoMh&al=1760840&ac=gettingricheasy&cid=954997&code=WELCOME50" target="_blank" rel="sponsored noopener">عضویت رایگان و تست در دمو</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap image-row">
+        <figure class="figure">
+          <img src="images/images04.png" alt="محیط تمرین میکروپالس و ارتباط کندل‌های ۱۰ ثانیه‌ای با معامله یک دقیقه‌ای" />
+          <figcaption class="caption">تمرین روی کندل‌های ۱۰ ثانیه‌ای کمک می‌کند ریتم شش کندل داخل یک افق یک‌دقیقه‌ای بهتر دیده شود.</figcaption>
+        </figure>
+        <div class="card">
+          <h2>بینش پیشرفته: فقط اندیکاتور نبینید</h2>
+          <p>
+            کتاب روی کیفیت حرکت نیز تأکید می‌کند. اگر عبور از خط میانی با سایه‌های بلند، کندل‌های نامنظم و برگشت‌های تند همراه باشد،
+            بازار هنوز درگیر است. ستاپ‌های تمیز معمولاً حرکت روان‌تر، پولبک کم‌عمق‌تر و ادامه‌داری واضح‌تری دارند.
+          </p>
+          <ul class="checklist">
+            <li>از بازارهای بسیار آشفته و پر از اسپایک دوری کنید.</li>
+            <li>حرکت روان و کندل‌های هم‌جهت را به جهش‌های هیجانی ترجیح دهید.</li>
+            <li>در شکست پس از رنج، ابتدا واکنش بعد از ایمپالس را ببینید.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="checklist">
+      <div class="wrap">
+        <div class="callout">
+          <h2>چک‌لیست قبل از هر تمرین</h2>
+          <p>
+            قبل از ثبت هر ستاپ در ژورنال تمرینی، این موارد باید هم‌زمان برقرار باشند. نبودن یکی از آن‌ها یعنی «عدم معامله».
+          </p>
+          <ul class="checklist">
+            <li>چارت روی کندل کلاسیک ۱۰ ثانیه‌ای تنظیم شده باشد.</li>
+            <li>افق بررسی/تمرین با منطق یک‌دقیقه‌ای هماهنگ باشد.</li>
+            <li>Donchian با دوره ۱۵ و تمرکز روی خط میانی استفاده شود.</li>
+            <li>Parabolic SAR با Step برابر 0.0015 و Max برابر 0.15 تنظیم شود.</li>
+            <li>قیمت خط میانی را در جهت ستاپ به‌صورت واضح قطع کرده باشد.</li>
+            <li>SAR در سمت درست کندل‌ها ظاهر شده باشد: زیر کندل برای Long و بالای کندل برای Short.</li>
+            <li>کندل‌ها آشفته، پر اسپایک و متناقض نباشند.</li>
+            <li>نتیجه هر تمرین در ژورنال با اسکرین‌شات و توضیح کوتاه ثبت شود.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="download">
+      <div class="wrap grid-2">
+        <div class="callout warning">
+          <h2>دانلود کتاب کامل</h2>
+          <p>
+            این صفحه فقط یک نسخه خلاصه‌شده و کاربردی از مفاهیم کتاب است. برای دیدن توضیحات تصویری کامل، مثال‌ها و
+            دیاگرام‌های دقیق، فایل اصلی را دانلود کنید.
+          </p>
+          <div class="inline-actions" style="margin-top:18px">
+            <a class="btn primary" href="https://drive.google.com/uc?export=download&id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">دانلود مستقیم کتاب</a>
+            <a class="btn soft" href="#top">بازگشت به ابتدای صفحه</a>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h2>تمرین در محیط دمو</h2>
+          <p>
+            بعد از مطالعه کتاب، می‌توانید قوانین را در یک فضای دمو و بدون درگیر کردن سرمایه واقعی بررسی کنید. معیار شما
+            باید کیفیت اجرای چک‌لیست، تعداد خطاهای احساسی و ثبات نتایج در نمونه‌های متعدد باشد؛ نه چند نتیجه تصادفی.
+          </p>
+          <div class="inline-actions" style="margin-top:18px">
+            <a class="btn" href="https://u3.shortink.io/register?utm_campaign=5940&utm_source=affiliate&utm_medium=sr&a=acRvUGUgdpQoMh&al=1760840&ac=gettingricheasy&cid=954997&code=WELCOME50" target="_blank" rel="sponsored noopener">باز کردن حساب رایگان دمو</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap card">
+        <h2>یادآوری مهم ریسک</h2>
+        <p>
+          معاملات کوتاه‌مدت و باینری آپشن ریسک بالایی دارند و ممکن است باعث زیان شوند. محتوای این صفحه صرفاً آموزشی است،
+          هیچ سود، نرخ برد یا نتیجه‌ای را تضمین نمی‌کند و جایگزین مشاوره مالی حرفه‌ای نیست. بهترین کاربرد این صفحه،
+          تمرین منظم، ژورنال‌نویسی و ساختن انضباط قبل از هر تصمیم مالی واقعی است.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div>
+        <strong>Dual Confirmation 1-Minute Trading Strategy</strong>
+        <p>
+          ساخته‌شده برای GitHub Pages — فایل تصاویر را در مسیر <code>images/</code> قرار دهید و همین <code>index.html</code> را در ریشه ریپازیتوری بگذارید.
+        </p>
+        <span class="pill">Educational Only</span>
+        <span class="pill">Demo First</span>
+        <span class="pill">No Profit Guarantee</span>
+      </div>
+      <div class="inline-actions">
+        <a class="btn soft" href="https://drive.google.com/uc?export=download&id=1C1RANAMo00iV4ZFwCdj78XdQuoWWOjaj" target="_blank" rel="noopener">دانلود کتاب</a>
+        <a class="btn" href="https://u3.shortink.io/register?utm_campaign=5940&utm_source=affiliate&utm_medium=sr&a=acRvUGUgdpQoMh&al=1760840&ac=gettingricheasy&cid=954997&code=WELCOME50" target="_blank" rel="sponsored noopener">تست در دمو</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
